@@ -1,4 +1,5 @@
-setwd("~/Desktop/github/EDAV_Project_1")
+#setwd("~/Desktop/github/EDAV_Project_1")
+setwd("~/Documents/columbia 2016Spring/EDAV/project/EDAV_Project_1")
 survey <- read.csv("Survey+Response.csv")
 
 clean <- function(x,y,col){
@@ -94,3 +95,4 @@ for(i in 1:dim(survey)[1])
 
 #Deal with the missing values in "Gender":
 survey$What.is.your.preferred.gender.pronoun.[which(survey$What.is.your.preferred.gender.pronoun. == "")] <- "doesn't matter"
+
