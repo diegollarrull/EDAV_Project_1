@@ -4,10 +4,13 @@ require(devtools)
 install_github('rCharts', 'ramnathv')(edited)
 require(rCharts)
 
+setwd("~/Desktop/github/EDAV_Project_1")
+survey <- read.csv("SurveyResponse_updated.csv")
 #generate data set
+
 names(survey)
-skills <- summary(survey[,13])
-for (i in c(17,15,14,16)){
+skills <- summary(survey[,14])
+for (i in c(18,15:17)){
   x <- summary(survey[,i])
   skills <- c(skills, x)
 }
