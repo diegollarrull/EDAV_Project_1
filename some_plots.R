@@ -48,10 +48,10 @@ mdata$program = clean("MSDS", "IDSE (master)", mdata$program)
 mdata$program = clean("Data Science", "IDSE (master)", mdata$program)
 mdata = clean_values(mdata)
 g1 = ggplot(mdata, aes(variable, fill=value)) + geom_bar() + facet_wrap(~program, ncol=3)
-g1 = g1 + labs(x = "Skills", y = "Count of Yes/No", title = "Facet is Skill")
+g1 = g1 + labs(x = "Skills", y = "Count of Yes/No", title = "Facet is Department")
 g1
 
 ### plot 3
 g2 = ggplot(mdata, aes(program, fill=value)) + geom_bar() + facet_wrap(~variable, nrow=4)
-g2 = g2 +labs(x = "Program", y = "Count of Yes/No", title="Facet is Department")
+g2 = g2 +labs(x = "Program", y = "Count of Yes/No", title="Facet is Skill")
 g2
