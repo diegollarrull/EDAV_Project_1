@@ -1,0 +1,55 @@
+---
+title: "Group project: data organization and cleanup"
+output: pdf_document
+---
+
+In order to clean up the data, we imported the .csv file and parsed the column named **Experiences.with.tools** and filled the empty columns with the information on that column. The code that performs the cleanup is the following: 
+
+```{r}
+setwd("~/Google Drive/Data Science/Courses/Spring 2016/
+      Exploratory Data Analysis and Visualization/
+      Assignments/EDAV_Project_1/")
+SurveyResponse <- read.csv("./Survey+Response.csv")
+
+parsefun <- function(x) {
+  coll = names(SurveyResponse) %in% x[2]
+  for (i in 1:nrow(SurveyResponse)){
+    Gr =  grep(x[1], as.character(SurveyResponse$Experiences.with.tools[i]))
+    if (length(Gr) > 0){
+      answer = "yes"
+    }
+    else{
+      answer = "no"
+    }
+    SurveyResponse[i, coll] = as.character(SurveyResponse[i,coll])
+    SurveyResponse[i, coll] = answer
+  }
+}
+
+Exprs = c("html|css|basic js|jquery", "Matlab", "R",
+          "knitr", "Python", "Github", "SQL")
+Cols = c("Software.experience..the.smaller.list...
+         Web.frontend..html.css.basic.js.jquery..",
+         "Experiences.with.tools..Matlab.",
+         "Software.experience..the.smaller.list...
+         R..graphics..base..lattice..ggplot2..or.grid..",
+         "Software.experience..the.smaller.list...
+         Reproducible.research..sweave..knitr..ipnb..etc...",
+         "Software.experience..the.smaller.list...
+         Python.",   
+         "Software.experience..the.smaller.list...
+         Version.control..git..mercurial..subversion..etc...",
+         "Software.experience..the.smaller.list...
+         Databases..any..")
+
+exprcols = cbind(Exprs,Cols)
+apply(exprcols, 1, parsefun)
+```
+
+The resulting output is then written into a new \textit{.csv} file
+
+```{r}
+write.csv(SurveyResponse, "./SurveyResponse_updated.csv")
+```
+
+
