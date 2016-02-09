@@ -1,5 +1,6 @@
+# R code to make the chart3 graph:
 setwd("~/Desktop/github/EDAV_Project_1")
-survey <- read.csv("Survey+Response.csv")
+survey <- read.csv("SurveyResponse_updated.csv")
 
 clean <- function(x,y,col){
   col[grep(x,col,ignore.case = TRUE)] <- y
@@ -11,7 +12,9 @@ summary(survey$Program)
 survey$Program <- clean("QMSS","QMSS (master)",survey$Program)
 survey$Program <- clean("Ms in ds","Data Science",survey$Program)
 survey$Program <- clean("PhD","Ph.D.",survey$Program)
-
+survey$Program <- clean("MSDS","Data Science",survey$Program)
+survey$Program <- clean("IDSE","Data Science",survey$Program)
+survey$Program <- droplevels(survey$Program)
 #clean Favoriate Code
 survey$What.code.text.editor.do.you.use.most.<- as.character(survey$What.code.text.editor.do.you.use.most.)
 table(survey$What.code.text.editor.do.you.use.most.)
@@ -23,7 +26,7 @@ survey$What.code.text.editor.do.you.use.most. <- clean("jupyter","Jupyter", surv
 
 #see the data
 View(survey)
-names(survey)
+
 
 #Deal with the missing values in "Gender":
 survey$What.is.your.preferred.gender.pronoun.[which(survey$What.is.your.preferred.gender.pronoun. == "")] <- "doesn't matter"
