@@ -22,7 +22,7 @@ survey$What.code.text.editor.do.you.use.most. <- clean("Sublime","Sublime Text",
 survey$What.code.text.editor.do.you.use.most.<- clean("ipy","Ipython",survey$What.code.text.editor.do.you.use.most.)
 survey$What.code.text.editor.do.you.use.most. <- clean("textwrangler","TextWrangler",survey$What.code.text.editor.do.you.use.most.)
 survey$What.code.text.editor.do.you.use.most. <- clean("Java","Eclipse", survey$What.code.text.editor.do.you.use.most.)
-survey$What.code.text.editor.do.you.use.most. <- clean("jupyter","Jupyter", survey$What.code.text.editor.do.you.use.most.)
+survey$What.code.text.editor.do.ylou.use.most. <- clean("jupyter","Jupyter", survey$What.code.text.editor.do.you.use.most.)
 
 #see the data
 View(survey)
