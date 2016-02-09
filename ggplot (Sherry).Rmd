@@ -1,0 +1,108 @@
+---
+title: "Course Survey Analysis"
+subtitle: "STATW 4710 Porject1 final report"
+output: 
+pdf_document:
+theme: united
+highlight: zenburn
+fontsize: 9pts
+fig_width: 7
+fig_height: 6
+---
+
+
+1. We first do some analysis about the "Programing and Analytical Experiences" to say the general level over class, and we got the plot as following:
+
+```{r include=FALSE}
+library(ggplot2)
+library(reshape)
+# load the data:
+setwd("~/Desktop/github/EDAV_Project_1")
+survey <- read.csv("SurveyResponse_updated.csv")
+
+# clean similar entries:
+clean <- function(x,y,col){
+  col[grep(x,col,ignore.case = TRUE)] <- y
+  return(col)
+}
+#clean Program
+survey$Program <- clean("QMSS","QMSS (master)",survey$Program)
+survey$Program <- clean("Ms in ds","Data Science",survey$Program)
+survey$Program <- clean("PhD","Ph.D.",survey$Program)
+survey$Program <- clean("MSDS","Data Science",survey$Program)
+survey$Program <- clean("IDSE","Data Science",survey$Program)
+survey$Program <- droplevels(survey$Program)
+#clean Favoriate Code
+survey$What.code.text.editor.do.you.use.most.<- as.character(survey$What.code.text.editor.do.you.use.most.)
+table(survey$What.code.text.editor.do.you.use.most.)
+survey$What.code.text.editor.do.you.use.most. <- clean("Sublime","Sublime Text",survey$What.code.text.editor.do.you.use.most.)
+survey$What.code.text.editor.do.you.use.most.<- clean("ipy","Ipython",survey$What.code.text.editor.do.you.use.most.)
+survey$What.code.text.editor.do.you.use.most. <- clean("textwrangler","TextWrangler",survey$What.code.text.editor.do.you.use.most.)
+survey$What.code.text.editor.do.you.use.most. <- clean("Java","Eclipse", survey$What.code.text.editor.do.you.use.most.)
+survey$What.code.text.editor.do.you.use.most. <- clean("jupyter","Jupyter", survey$What.code.text.editor.do.you.use.most.)
+survey$What.code.text.editor.do.you.use.most. <- as.factor(survey$What.code.text.editor.do.you.use.most.)
+survey$What.code.text.editor.do.you.use.most. <- droplevels(survey$What.code.text.editor.do.you.use.most.)
+
+```
+
+```{r echo=FALSE}
+# create a dataset "skills"
+skills <- survey[,c(1,14:18)]
+colnames(skills) <-c("id","R, graphic basics","Github","R, advanced ","Reproducible documentation","Matlab")
+skills <- melt(skills,id = "id")
+colnames(skills) <- c("id","Skill","level")
+#generate the plot:
+ggplot(skills, aes(x= Skill,fill=level))+
+  geom_bar(position = "dodge")+
+  scale_fill_brewer(palette = 4)+
+  labs(title = "Programming and Analytical Experience level")
+
+```
+
+say something about the graph......
+
+2.
+We then create another graph about "Program" and "Software experience". What we do is to count the number of people with certain software experience and how does it differ by which program they belongs to.
+
+
+```{r echo=FALSE}
+# create a dataset "software" 
+software <- survey[,c(1,3,6:11)]
+prog <- levels(software$Program)
+softname <- c("R, graphics","Reproducible","Python","Version Control","Databases", "Web frontend")
+colnames(software)<- c("id","program",softname)
+software <- melt(software,id = c("id","program"))
+colnames(software) <- c("id","Program","Software experience", "Y/N")
+software <- software[software$`Y/N`=="yes",]
+
+ggplot(software, aes(x= `Software experience`,fill= Program))+
+  geom_bar(position = "dodge")+
+  scale_fill_brewer(palette = 4)+
+  labs(title = "Sofware experience distribution over different programs")
+```
+
+Because some programs have more people than others, we could create another graph to see the percentage of people each program with certain experience:
+
+
+```{r echo=FALSE}
+soft_back <- as.data.frame(matrix(data = NA, nrow = 7,ncol = 8))
+colnames(soft_back) <- c("program",softname,"total")
+soft_back$program <-prog
+soft_back$total <- summary(survey$Program)
+for (i in 1:7){
+  soft_back$`R, graphics`[i] <- sum(software$Program == prog[i] & software$`Software experience` == softname[2])
+  soft_back$Reproducible [i]<- sum(software$Program == prog[i] & software$`Software experience` == softname[2])
+  soft_back$Python [i]<- sum(software$Program == prog[i] & software$`Software experience` == softname[3])
+  soft_back$`Version Control`[i] <- sum(software$Program == prog[i] & software$`Software experience` == softname[4])
+  soft_back$Databases[i] <- sum(software$Program == prog[i] & software$`Software experience` == softname[5])
+  soft_back$`Web frontend`[i] <- sum(software$Program == prog[i] & software$`Software experience` == softname[6])
+}
+
+soft_back <- melt(soft_back,id = c("program","total"))
+soft_back$percent <- round(soft_back$value/soft_back$total,2) 
+
+ggplot(soft_back, aes(x= program))+
+  geom_bar(aes(y = percent,fill= variable ),position = "dodge",stat = "identity")+
+  scale_fill_brewer(palette = 4)
+```
+Compared with "Data Science" students and people in "QMSS": 
