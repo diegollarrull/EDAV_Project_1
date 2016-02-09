@@ -1,0 +1,372 @@
+
+<!-- <!DOCTYPE html> -->
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Stacked/Grouped Multi-Bar Chart - NVD3</title>
+    <meta name="author" content="Novus Partners">
+
+
+    <meta name="description" content="Complete Charts Simple Line Scatter / Bubble Stacked / Stream / Expanded Area Discrete Bar Grouped / Stacked Multi-Bar Horizontal Grouped Bar Line &hellip;">
+
+
+    <!-- http://t.co/dKP3o1e -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="canonical" href="http://nvd3.org//examples/multiBar.html">
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/d3.min.js" charset="utf-8"></script>
+    <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>-->
+    <script src="js/nv.d3.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.js" type="text/javascript"></script>
+    <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+    <!--<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">-->
+    <link rel='stylesheet' href='http://nvd3.org/assets/css/nv.d3.css'>
+    <script src='http://nvd3.org/assets/lib/fisheye.js' type='text/javascript'></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js' type='text/javascript'></script>
+    <script src='http://d3js.org/d3.v3.min.js' type='text/javascript'></script>
+    <script src='http://timelyportfolio.github.io/rCharts_nvd3_tests/libraries/widgets/nvd3/js/nv.d3.min-new.js' type='text/javascript'></script>
+    <link href="css/nv.d3.css" rel="stylesheet" type="text/css">
+
+    <!--<link href="/assets/css/bootstrap.css" rel="stylesheet">-->
+    <style type="text/css">
+        body {
+            padding-top: 43px;
+        }
+        .statement_para {
+            font-size: 14pt;
+            line-height: 120%;
+            width: 60%;
+            text-align: justify;
+            text-justify: distribute;
+            margin: 10px auto;
+            margin-bottom: 30px;
+        }
+        .row {
+            margin 1%;
+        }
+        article {
+            padding: 0 1%;
+            font-size: 18px;
+            line-height: 1.5em;
+        }
+        body > .container {
+            width: 941px;
+        }
+        @media(min-width: 1200px){
+            body > .container {
+                width: 1171px;
+            }
+        }
+        @media (max-width: 979px) and (min-width: 768px) {
+            body > .container {
+                width: 725px;
+            }
+        }
+    </style>
+    <!--    <link href="/assets/css/common.css" rel="stylesheet">
+        <link href="/assets/css/nv.d3.css" rel="stylesheet">
+        <script src="/assets/js/lib/bootstrap.min.js"></script>
+    <script src="/assets/lib/d3.v3.js"></script>
+    <script src="/assets/js/nv.d3.js"></script>
+    <script src="/assets/js/data/stream_layers.js"></script>
+    <script src="/assets/js/page/index.js"></script>
+    -->
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-33058059-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+<div id = 'chart2' class = 'rChart nvd3'></div>
+<script type='text/javascript'>
+    $(document).ready(function(){
+        drawchart2()
+    });
+    function drawchart2(){
+        var opts = {
+                    "dom": "chart2",
+                    "width":    800,
+                    "height":    400,
+                    "x": "software",
+                    "y": "count_yes",
+                    "group": "Program",
+                    "type": "multiBarChart",
+                    "id": "chart2"
+                },
+                data = [
+                    {
+                        "Program": "Applied Math",
+                        "software": "R, graphics",
+                        "count_yes": 0
+                    },
+                    {
+                        "Program": "Data Science",
+                        "software": "R, graphics",
+                        "count_yes": 47
+                    },
+                    {
+                        "Program": "Data Science Certification",
+                        "software": "R, graphics",
+                        "count_yes": 13
+                    },
+                    {
+                        "Program": "Other masters",
+                        "software": "R, graphics",
+                        "count_yes": 9
+                    },
+                    {
+                        "Program": "Ph.D.",
+                        "software": "R, graphics",
+                        "count_yes": 3
+                    },
+                    {
+                        "Program": "QMSS (master)",
+                        "software": "R, graphics",
+                        "count_yes": 3
+                    },
+                    {
+                        "Program": "Statistics (master)",
+                        "software": "R, graphics",
+                        "count_yes": 15
+                    },
+                    {
+                        "Program": "Applied Math",
+                        "software": "Reproducible",
+                        "count_yes": 0
+                    },
+                    {
+                        "Program": "Data Science",
+                        "software": "Reproducible",
+                        "count_yes": 5
+                    },
+                    {
+                        "Program": "Data Science Certification",
+                        "software": "Reproducible",
+                        "count_yes": 1
+                    },
+                    {
+                        "Program": "Other masters",
+                        "software": "Reproducible",
+                        "count_yes": 2
+                    },
+                    {
+                        "Program": "Ph.D.",
+                        "software": "Reproducible",
+                        "count_yes": 0
+                    },
+                    {
+                        "Program": "QMSS (master)",
+                        "software": "Reproducible",
+                        "count_yes": 2
+                    },
+                    {
+                        "Program": "Statistics (master)",
+                        "software": "Reproducible",
+                        "count_yes": 0
+                    },
+                    {
+                        "Program": "Applied Math",
+                        "software": "Python",
+                        "count_yes": 1
+                    },
+                    {
+                        "Program": "Data Science",
+                        "software": "Python",
+                        "count_yes": 51
+                    },
+                    {
+                        "Program": "Data Science Certification",
+                        "software": "Python",
+                        "count_yes": 16
+                    },
+                    {
+                        "Program": "Other masters",
+                        "software": "Python",
+                        "count_yes": 7
+                    },
+                    {
+                        "Program": "Ph.D.",
+                        "software": "Python",
+                        "count_yes": 2
+                    },
+                    {
+                        "Program": "QMSS (master)",
+                        "software": "Python",
+                        "count_yes": 3
+                    },
+                    {
+                        "Program": "Statistics (master)",
+                        "software": "Python",
+                        "count_yes": 6
+                    },
+                    {
+                        "Program": "Applied Math",
+                        "software": "Version Control",
+                        "count_yes": 1
+                    },
+                    {
+                        "Program": "Data Science",
+                        "software": "Version Control",
+                        "count_yes": 23
+                    },
+                    {
+                        "Program": "Data Science Certification",
+                        "software": "Version Control",
+                        "count_yes": 9
+                    },
+                    {
+                        "Program": "Other masters",
+                        "software": "Version Control",
+                        "count_yes": 5
+                    },
+                    {
+                        "Program": "Ph.D.",
+                        "software": "Version Control",
+                        "count_yes": 1
+                    },
+                    {
+                        "Program": "QMSS (master)",
+                        "software": "Version Control",
+                        "count_yes": 1
+                    },
+                    {
+                        "Program": "Statistics (master)",
+                        "software": "Version Control",
+                        "count_yes": 5
+                    },
+                    {
+                        "Program": "Applied Math",
+                        "software": "Databases",
+                        "count_yes": 0
+                    },
+                    {
+                        "Program": "Data Science",
+                        "software": "Databases",
+                        "count_yes": 32
+                    },
+                    {
+                        "Program": "Data Science Certification",
+                        "software": "Databases",
+                        "count_yes": 13
+                    },
+                    {
+                        "Program": "Other masters",
+                        "software": "Databases",
+                        "count_yes": 5
+                    },
+                    {
+                        "Program": "Ph.D.",
+                        "software": "Databases",
+                        "count_yes": 1
+                    },
+                    {
+                        "Program": "QMSS (master)",
+                        "software": "Databases",
+                        "count_yes": 2
+                    },
+                    {
+                        "Program": "Statistics (master)",
+                        "software": "Databases",
+                        "count_yes": 3
+                    },
+                    {
+                        "Program": "Applied Math",
+                        "software": "Web frontend",
+                        "count_yes": 0
+                    },
+                    {
+                        "Program": "Data Science",
+                        "software": "Web frontend",
+                        "count_yes": 14
+                    },
+                    {
+                        "Program": "Data Science Certification",
+                        "software": "Web frontend",
+                        "count_yes": 6
+                    },
+                    {
+                        "Program": "Other masters",
+                        "software": "Web frontend",
+                        "count_yes": 2
+                    },
+                    {
+                        "Program": "Ph.D.",
+                        "software": "Web frontend",
+                        "count_yes": 1
+                    },
+                    {
+                        "Program": "QMSS (master)",
+                        "software": "Web frontend",
+                        "count_yes": 1
+                    },
+                    {
+                        "Program": "Statistics (master)",
+                        "software": "Web frontend",
+                        "count_yes": 1
+                    }
+                ]
+
+        if(!(opts.type==="pieChart" || opts.type==="sparklinePlus" || opts.type==="bulletChart")) {
+            var data = d3.nest()
+                    .key(function(d){
+                        //return opts.group === undefined ? 'main' : d[opts.group]
+                        //instead of main would think a better default is opts.x
+                        return opts.group === undefined ? opts.y : d[opts.group];
+                    })
+                    .entries(data);
+        }
+
+        if (opts.disabled != undefined){
+            data.map(function(d, i){
+                d.disabled = opts.disabled[i]
+            })
+        }
+
+        nv.addGraph(function() {
+            var chart = nv.models[opts.type]()
+                    .width(opts.width)
+                    .height(opts.height)
+
+            if (opts.type != "bulletChart"){
+                chart
+                        .x(function(d) { return d[opts.x] })
+                        .y(function(d) { return d[opts.y] })
+            }
+
+
+
+
+
+
+
+
+
+
+            d3.select("#" + opts.id)
+                    .append('svg')
+                    .datum(data)
+                    .transition().duration(500)
+                    .call(chart);
+
+            nv.utils.windowResize(chart.update);
+            return chart;
+        });
+    };
+</script>
