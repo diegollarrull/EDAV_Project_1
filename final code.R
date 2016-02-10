@@ -56,6 +56,9 @@ for (j in 1:nrow(exprcols)){
 
 # Remove unnecesary column
 SurveyResponse$Software.experience..the.smaller.list...Serious.javascript..angular.ember.node.. <- NULL
+SurveyResponse$Programming.and.Analytical.Experiences..Serious.javascript..angular.ember.node.. <- NULL                                                       
+SurveyResponse$Programming.and.Analytical.Experiences..Web.frontend..html.css.basic.js.jquery.. <- NULL                                                       
+
 
 write.csv(SurveyResponse, "./SurveyResponse_updated.csv")
 survey <- read.csv("./SurveyResponse_updated.csv")
@@ -104,6 +107,7 @@ survey$What.is.your.preferred.gender.pronoun.[which(survey$What.is.your.preferre
 # R code to make the heatmap graph:
 progSurvey = cbind(survey$X,survey[,grep("Programming", colnames(survey))])
 names(progSurvey) = c("x", "R", "R Graphics", "R Advanced", "R Markdown", "Matlab", "Github")
+#progSurvey$R <- as.character(progSurvey$R)
 progSurvey$x <- with(progSurvey, reorder(x, R))
 progSurvey.m = melt(progSurvey, id.vars = "x")
 names(progSurvey.m) <- c("Student", "Skill", "Level")
