@@ -103,16 +103,24 @@ survey$What.is.your.preferred.gender.pronoun.[which(survey$What.is.your.preferre
 ## HEATMAP - DIEGO
 ##-------------------------
 
-
 # R code to make the heatmap graph:
 progSurvey = cbind(survey$X,survey[,grep("Programming", colnames(survey))])
 progSurvey = progSurvey[,1:7]
 names(progSurvey) = c("x", "R", "R Graphics", "R Advanced", "R Markdown", "Matlab", "Github")
+progSurvey$R <- factor(progSurvey$R,levels(progSurvey$R)[c(4,1,2,3)])
+progSurvey$"R Graphics" <- factor(progSurvey$"R Graphics",levels(progSurvey$"R Graphics")[c(4,1,2,3)])
+progSurvey$"R Advanced" <- factor(progSurvey$"R Advanced",levels(progSurvey$"R Advanced")[c(4,1,2,3)])
+progSurvey$"R Markdown" <- factor(progSurvey$"R Markdown",levels(progSurvey$"R Markdown")[c(4,1,2,3)])
+progSurvey$"Matlab" <- factor(progSurvey$"Matlab",levels(progSurvey$"Matlab")[c(4,1,2,3)])
+progSurvey$"Github" <- factor(progSurvey$"Github",levels(progSurvey$"Github")[c(4,1,2,3)])
 #progSurvey$R <- as.character(progSurvey$R)
 progSurvey$x <- with(progSurvey, reorder(x, R))
 progSurvey.m = melt(progSurvey, id.vars = "x")
 names(progSurvey.m) <- c("Student", "Skill", "Level")
+progSurvey.m <- progSurvey.m[order(progSurvey.m$Skill, progSurvey.m$Level),]
+progSurvey.m$Student <- factor(progSurvey.m$Student,levels(progSurvey.m$Student)[progSurvey.m$Student[1:114]])
 (p <- ggplot(progSurvey.m, aes(Skill, Student)) +  geom_tile(aes(fill = Level), colour = "white"))
+p + theme(axis.text.x = element_text( size = rel(2.5)))
 p + scale_fill_manual(values = c("None" = "#eff3ff", "A little" = "#bdd7e7", "Confident" = "#6baed6", "Expert" = "#2171b5"))
 
 
