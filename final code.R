@@ -106,6 +106,7 @@ survey$What.is.your.preferred.gender.pronoun.[which(survey$What.is.your.preferre
 
 # R code to make the heatmap graph:
 progSurvey = cbind(survey$X,survey[,grep("Programming", colnames(survey))])
+progSurvey = progSurvey[,1:7]
 names(progSurvey) = c("x", "R", "R Graphics", "R Advanced", "R Markdown", "Matlab", "Github")
 #progSurvey$R <- as.character(progSurvey$R)
 progSurvey$x <- with(progSurvey, reorder(x, R))
@@ -113,6 +114,30 @@ progSurvey.m = melt(progSurvey, id.vars = "x")
 names(progSurvey.m) <- c("Student", "Skill", "Level")
 (p <- ggplot(progSurvey.m, aes(Skill, Student)) +  geom_tile(aes(fill = Level), colour = "white"))
 p + scale_fill_manual(values = c("None" = "#eff3ff", "A little" = "#bdd7e7", "Confident" = "#6baed6", "Expert" = "#2171b5"))
+
+
+##-------------------------
+## ORDERED HEATMAP - VISHAL
+##-------------------------
+
+
+# R code to make the heatmap graph:
+progSurvey = cbind(survey$X,survey[,grep("Programming", colnames(survey))])
+progSurvey = progSurvey[,1:7]
+names(progSurvey) = c("x", "R", "R Graphics", "R Advanced", "R Markdown", "Matlab", "Github")
+a_map = c("None"=0,"A little"=1, "Confident"=2, "Expert"=3)
+A = function(x) a_map[as.character(x)]
+n = cbind(apply(progSurvey[2:7], 2, A))
+score = apply(n, 1, sum)
+progSurvey$score = score
+progSurvey$x <- with(progSurvey, reorder(x, -score))
+#progSurvey <- progSurvey[order(score),]
+progSurvey$score = NULL
+progSurvey.m = melt(progSurvey, id.vars = "x")
+names(progSurvey.m) <- c("Student", "Skill", "Level")
+(p1 <- ggplot(progSurvey.m, aes(Skill, Student)) +  geom_tile(aes(fill = Level), colour = "white") + labs(title="Student_Skills_Heatmap"))
+p1 + scale_fill_manual(values = c("None" = "#eff3ff", "A little" = "#bdd7e7", "Confident" = "#6baed6", "Expert" = "#2171b5"))
+
 
 
 ##-------------------------
