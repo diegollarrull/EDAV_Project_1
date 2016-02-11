@@ -131,8 +131,8 @@ p + scale_fill_manual(values = c("None" = "#eff3ff", "A little" = "#bdd7e7", "Co
 ##-------------------------
 df = survey
 skill <- names(df)[c(6:11,19)]
-P2 = df[,c(2,6:11,19)]
-p2 = melt(dfcat, id=c("Waiting List"))
+p2 = df[,c(2,6:11,19)]
+p2 = melt(p2, id=c("Waiting List"))
 p2$value = factor(p2$value, levels(p2$value)[c(2,1)])
 levels(p2$`Waiting List`) = c("Student Enrolled","On Waiting List")
 levels(p2$variable) = skill
@@ -142,9 +142,9 @@ colnames(p2) <- c("Waiting List","Software Experience","Count Y/N")
 ggplot(p2, aes(reorder(`Software Experience`,`Software Experience`,function(x)-length(x)), fill= `Count Y/N`)) +
   geom_bar()+ #+ facet_grid(~variable)+ 
   facet_grid(`Waiting List`~.,scales = "free_y")+
-  scale_fill_brewer(palette = 1, direction = -1)+
+  scale_fill_manual(values  = c("no" = "#a6bddb", "yes" = "#2171b5"))+
   theme(axis.ticks.x = element_blank())+
-  labs(x = "Skills", y = "Count of Yes/No", title = "Software Experience with Waiting List")+
+  labs(x = "Skills", y = "Count of Yes/No",title = "Software Experience with Waiting List")+
   theme(axis.text.x = element_text(size=10, vjust=0.5))+
   theme(axis.title.y = element_text(size=10, vjust=0.5))+
   theme(plot.title = element_text(size=15))+
@@ -159,18 +159,20 @@ subset = names(df)[c(3,6:11)]
 p3 = df[subset]
 p3 = melt(p3, id=c("Program"))
 levels(p3$variable) = skill
+p3$value = factor(p3$value, levels(p3$value)[c(2,1)])
 
 #plot
 ggplot(p3, aes(reorder(variable,variable,function(x)-length(x)), fill=value)) + 
   geom_bar() +
   facet_grid(Program~.,scales = "free_y")+
-  scale_fill_brewer(palette = 1,direction = -1)+
+  scale_fill_manual(values  = c("no" = "#a6bddb", "yes" = "#2171b5"))+
   labs(x = "Skills", y = "Count of Yes/No", title = "Software Experience with Programs")+
   theme(axis.text.x = element_text(size=10, vjust=0.5))+
   theme(axis.title.y = element_text(size=10, vjust=0.5))+
   theme(plot.title = element_text(size=15))+
   guides(fill=guide_legend(title="With experience(Y/N)"))+
   theme(legend.title = element_text(size=10))
+  
 
 ##-------------------------
 # Plot 4. Favorite Editor vs. Program
@@ -234,7 +236,7 @@ ggplot(soft_back, aes(x= program))+
 ##-------------------------
 ggplot(survey, aes(Program, fill = `Waiting List`)) +
   geom_bar()+
-  scale_fill_brewer(palette = 3,direction = -1)+
+  scale_fill_brewer(palette = 1,direction = -1)+
   labs(x = "Program", y = "count Y/N on waitingl list", title ="Number of students on Waiting list within each program")+
   theme(axis.text.x = element_text(size=10, vjust=0.5))+
   theme(axis.title.y = element_text(size=10, vjust=0.5))+
