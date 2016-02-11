@@ -218,14 +218,19 @@ g
 
 
 ### plot 2
-subset = c("wl", "program", "r_graphics", "r_research", "python", "vc", "databases", "frontend")
+subset = c("program", "r_graphics", "r_research", "python", "vc", "databases", "frontend")
 dfcat = df[subset]
 mdata = melt(dfcat, id=c("program"))
-levels(mdata$variable) = c("Wait-List", "R_Graphics", "R_Research", "Python", "VersionControl"
+levels(mdata$variable) = c("R_Graphics", "R_Research", "Python", "VersionControl"
                            ,"Databases", "Frontend")
 mdata = clean_values(mdata)
 g1 = ggplot(mdata, aes(variable, fill=value)) + geom_bar() + facet_wrap(~program, ncol=3)
-g1 = g1 + labs(x = "Skills", y = "Count of Yes/No", title = "Facet is Department")
+g1 = g1 + labs(x = "Skills", y = "Count of Yes/No", title = "Department vise skill distribution")
+g1 = g1 + theme(axis.text.x = element_text(size=10, vjust=0.5))
+g1 = g1 + theme(axis.title.y = element_text(size=15, vjust=0.5))
+g1 = g1 + theme(plot.title = element_text(size=20))
+g1 = g1 + scale_fill_manual(values=c("darkgoldenrod1", "darkolivegreen4"))
+g1 = g1 + theme(legend.title=element_blank())
 g1
 
 ### plot 3
