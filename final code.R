@@ -240,7 +240,7 @@ g2 = ggplot(mdata, aes(program, fill=value)) + geom_bar() + facet_wrap(~variable
 g2 = g2 +labs(x = "Program", y = "Count of Yes/No", title="Facet is Skill")
 g2 = g2 + theme(axis.title.y = element_text(size=20, vjust=0.5))
 g2 = g2 + theme(plot.title = element_text(size=50))
-g2 = g2 +scale_fill_brewer(palette="Spectral") + theme_dark()
+g2 = g2 + scale_fill_brewer(palette="Spectral") + theme_dark()
 g2 = g2 + theme(legend.title=element_blank())
 g2
 
@@ -254,8 +254,6 @@ g2
 df$editor = as.character(df$editor)
 # clean editors
 df$editor = clean("sublime", "SublimeText", df$editor)
-df$editor = as.character(df$editor)
-df$editor = clean("sublime", "SublimeText", df$editor)
 df$editor = clean("ipy", "Ipython", df$editor)
 df$editor = clean("wrangler", "Text Wrangler", df$editor)
 df$editor = clean("Java", "Eclipse", df$editor)
@@ -268,7 +266,7 @@ df$editor = clean("python", "Ipython", df$editor)
 
 t = table(df$editor)
 
-g4 = ggplot(df, aes(x=reorder(editor, -table(editor)[editor]))) + geom_bar(fill="blue")
+g4 = ggplot(df, aes(x=reorder(editor, -table(editor)[editor]))) + geom_bar(fill="gold")
 g4 = g4 + labs(x="Editor", y="Frequency", title="Historgram(editors)")
 g4 = g4 + theme(axis.text.x=element_text(size=15, vjust=0.5))
 g4 = g4 + theme(axis.title.y=element_text(size=15, vjust=0.5))
@@ -284,7 +282,7 @@ for (i in 1:nrow(t)) {
   }
 }
 
-g5 = ggplot(dfcat, aes(x=reorder(program, -table(program)[program]), fill=editor)) + geom_bar()
+g5 = ggplot(dfcat, aes(x=reorder(program, -table(program)[program]), fill=editor)) + geom_bar() + scale_fill_brewer()
 g5 = g5 + labs(x="program", y="Frequency", title="Editor Preference with Program")
 g5 = g5 + theme(axis.text.x = element_text(size=15, vjust=0.5))
 g5 = g5 + theme(axis.title.y = element_text(size=15, vjust=0.5))
