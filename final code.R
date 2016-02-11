@@ -201,17 +201,19 @@ names(df) = c("x", "wl", "program", "tools", "r_manipulation", "r_graphics", "r_
 
 
 ### plot 1
-yesno = c("wl", "r_graphics", "r_research", "python", "vc", "databases", "frontend")
+yesno = c("r_graphics", "r_research", "python", "vc", "databases", "frontend")
 dfcat = df[yesno]
 mdata = melt(dfcat, id=c())
-clean_values(mdata)
+mdata = clean_values(mdata)
 
-levels(mdata$variable) = c("Wait-List", "R_Graphics", "R_Research", "Python", "VersionControl"
+levels(mdata$variable) = c("R_Graphics", "R_Research", "Python", "VersionControl"
                            ,"Databases", "Frontend")
 g = ggplot(mdata, aes(variable, fill=value)) + geom_bar() + facet_grid(~variable)
 g = g + labs(title = "Skill Distribution") + theme(axis.text.x=element_blank())
 g = g + theme(axis.ticks.x = element_blank())
 g = g + labs(x = "Skills", y = "Count of Yes/No")
+g = g + scale_fill_manual(values=c("darkgoldenrod1", "darkolivegreen4"))
+g = g + theme(legend.title=element_blank())
 g
 
 
@@ -275,6 +277,8 @@ g5 = g5 + theme(plot.title = element_text(size=20))
 g5 = g5 + guides(fill=guide_legend(title="Editor"))
 g5 = g5 + theme(legend.title = element_text(size=15))
 g5
+
+
 
 
 
