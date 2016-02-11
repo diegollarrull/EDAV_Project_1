@@ -47,9 +47,7 @@ for (j in 1:nrow(exprcols)){
       answer = "no"
     }
     SurveyResponse[i, coll] <- as.character(SurveyResponse[i,coll])
-    print(SurveyResponse[i,coll])
     SurveyResponse[i, coll] <- answer
-    print(SurveyResponse[i,coll])
   }
 }
 
