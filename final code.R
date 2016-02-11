@@ -234,8 +234,14 @@ g1 = g1 + theme(legend.title=element_blank())
 g1
 
 ### plot 3
+mdata$program = as.character(mdata$program)
+mdata$program[mdata$program == "Data Science Certification"] = "DS Cert"
 g2 = ggplot(mdata, aes(program, fill=value)) + geom_bar() + facet_wrap(~variable, nrow=4)
 g2 = g2 +labs(x = "Program", y = "Count of Yes/No", title="Facet is Skill")
+g2 = g2 + theme(axis.title.y = element_text(size=20, vjust=0.5))
+g2 = g2 + theme(plot.title = element_text(size=50))
+g2 = g2 +scale_fill_brewer(palette="Spectral") + theme_dark()
+g2 = g2 + theme(legend.title=element_blank())
 g2
 
 
