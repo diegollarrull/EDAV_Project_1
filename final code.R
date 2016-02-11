@@ -244,6 +244,10 @@ g2 = g2 +scale_fill_brewer(palette="Spectral") + theme_dark()
 g2 = g2 + theme(legend.title=element_blank())
 g2
 
+## pie
+g2 + coord_polar(theta = "y")
+g2
+
 
 ### plot 4
 
