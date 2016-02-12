@@ -1,0 +1,263 @@
+
+<!-- <!DOCTYPE html> -->
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Stacked/Grouped Multi-Bar Chart - NVD3</title>
+    <meta name="author" content="Novus Partners">
+
+
+    <meta name="description" content="Complete Charts Simple Line Scatter / Bubble Stacked / Stream / Expanded Area Discrete Bar Grouped / Stacked Multi-Bar Horizontal Grouped Bar Line &hellip;">
+
+
+    <!-- http://t.co/dKP3o1e -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="canonical" href="http://nvd3.org//examples/multiBar.html">
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/d3.min.js" charset="utf-8"></script>
+    <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>-->
+    <script src="js/nv.d3.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.js" type="text/javascript"></script>
+    <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+    <!--<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">-->
+    <link rel='stylesheet' href='http://nvd3.org/assets/css/nv.d3.css'>
+    <script src='http://nvd3.org/assets/lib/fisheye.js' type='text/javascript'></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js' type='text/javascript'></script>
+    <script src='http://d3js.org/d3.v3.min.js' type='text/javascript'></script>
+    <script src='http://timelyportfolio.github.io/rCharts_nvd3_tests/libraries/widgets/nvd3/js/nv.d3.min-new.js' type='text/javascript'></script>
+    <link href="css/nv.d3.css" rel="stylesheet" type="text/css">
+
+    <!--<link href="/assets/css/bootstrap.css" rel="stylesheet">-->
+    <style type="text/css">
+        body {
+            padding-top: 43px;
+        }
+        .statement_para {
+            font-size: 14pt;
+            line-height: 120%;
+            width: 60%;
+            text-align: justify;
+            text-justify: distribute;
+            margin: 10px auto;
+            margin-bottom: 30px;
+        }
+        .row {
+            margin 1%;
+        }
+        article {
+            padding: 0 1%;
+            font-size: 18px;
+            line-height: 1.5em;
+        }
+        body > .container {
+            width: 941px;
+        }
+        @media(min-width: 1200px){
+            body > .container {
+                width: 1171px;
+            }
+        }
+        @media (max-width: 979px) and (min-width: 768px) {
+            body > .container {
+                width: 725px;
+            }
+        }
+    </style>
+    <!--    <link href="/assets/css/common.css" rel="stylesheet">
+        <link href="/assets/css/nv.d3.css" rel="stylesheet">
+        <script src="/assets/js/lib/bootstrap.min.js"></script>
+    <script src="/assets/lib/d3.v3.js"></script>
+    <script src="/assets/js/nv.d3.js"></script>
+    <script src="/assets/js/data/stream_layers.js"></script>
+    <script src="/assets/js/page/index.js"></script>
+    -->
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-33058059-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+
+<div id = 'chart3' class = 'rChart nvd3'></div>
+<script type='text/javascript'>
+    $(document).ready(function(){
+        drawchart3()
+    });
+    function drawchart3(){
+        var opts = {
+                    "dom": "chart3",
+                    "width":    800,
+                    "height":    400,
+                    "x": "skill",
+                    "y": "count",
+                    "group": "level",
+                    "type": "multiBarChart",
+                    "id": "chart3"
+                },
+                data = [
+                    {
+                        "count": 2,
+                        "skill": "R, graphic basics",
+                        "level": "Expert"
+                    },
+                    {
+                        "count": 3,
+                        "skill": "Github",
+                        "level": "Expert"
+                    },
+                    {
+                        "count": 2,
+                        "skill": "R, advanced ",
+                        "level": "Expert"
+                    },
+                    {
+                        "count": 6,
+                        "skill": "Reproducible documentation",
+                        "level": "Expert"
+                    },
+                    {
+                        "count": 1,
+                        "skill": "Matlab",
+                        "level": "Expert"
+                    },
+                    {
+                        "count": 34,
+                        "skill": "R, graphic basics",
+                        "level": "Confident"
+                    },
+                    {
+                        "count": 28,
+                        "skill": "Github",
+                        "level": "Confident"
+                    },
+                    {
+                        "count": 22,
+                        "skill": "R, advanced ",
+                        "level": "Confident"
+                    },
+                    {
+                        "count": 26,
+                        "skill": "Reproducible documentation",
+                        "level": "Confident"
+                    },
+                    {
+                        "count": 24,
+                        "skill": "Matlab",
+                        "level": "Confident"
+                    },
+                    {
+                        "count": 53,
+                        "skill": "R, graphic basics",
+                        "level": "A little"
+                    },
+                    {
+                        "count": 48,
+                        "skill": "Github",
+                        "level": "A little"
+                    },
+                    {
+                        "count": 57,
+                        "skill": "R, advanced ",
+                        "level": "A little"
+                    },
+                    {
+                        "count": 39,
+                        "skill": "Reproducible documentation",
+                        "level": "A little"
+                    },
+                    {
+                        "count": 44,
+                        "skill": "Matlab",
+                        "level": "A little"
+                    },
+                    {
+                        "count": 25,
+                        "skill": "R, graphic basics",
+                        "level": "None"
+                    },
+                    {
+                        "count": 35,
+                        "skill": "Github",
+                        "level": "None"
+                    },
+                    {
+                        "count": 33,
+                        "skill": "R, advanced ",
+                        "level": "None"
+                    },
+                    {
+                        "count": 43,
+                        "skill": "Reproducible documentation",
+                        "level": "None"
+                    },
+                    {
+                        "count": 45,
+                        "skill": "Matlab",
+                        "level": "None"
+                    }
+                ]
+
+        if(!(opts.type==="pieChart" || opts.type==="sparklinePlus" || opts.type==="bulletChart")) {
+            var data = d3.nest()
+                    .key(function(d){
+                        //return opts.group === undefined ? 'main' : d[opts.group]
+                        //instead of main would think a better default is opts.x
+                        return opts.group === undefined ? opts.y : d[opts.group];
+                    })
+                    .entries(data);
+        }
+
+        if (opts.disabled != undefined){
+            data.map(function(d, i){
+                d.disabled = opts.disabled[i]
+            })
+        }
+
+        nv.addGraph(function() {
+            var chart = nv.models[opts.type]()
+                    .width(opts.width)
+                    .height(opts.height)
+
+            if (opts.type != "bulletChart"){
+                chart
+                        .x(function(d) { return d[opts.x] })
+                        .y(function(d) { return d[opts.y] })
+            }
+
+
+
+
+
+
+
+
+
+
+            d3.select("#" + opts.id)
+                    .append('svg')
+                    .datum(data)
+                    .transition().duration(500)
+                    .call(chart);
+
+            nv.utils.windowResize(chart.update);
+            return chart;
+        });
+    };
+</script>

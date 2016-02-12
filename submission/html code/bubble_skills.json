@@ -1,0 +1,179 @@
+{
+	"name" : "flare",
+	"children": 
+[
+	{
+	 "name": "IDSE (master)",
+	 "children":
+	 [
+	 	{
+	 	"name": "R, graphics",
+		"size": 64
+	 	},
+	 	{
+		"name": "Reproducible",
+		"size": 5
+	 	},
+	 	{
+		"name": "Python",
+		"size": 67
+		},
+		{
+		"name": "Version Control",
+		"size": 31
+		},
+		{
+		"name": "Databases",
+		"size": 45
+		},
+		{
+		"name": "Matlab",
+		"size": 25
+		},
+		{
+		"name": "Web frontend",
+		"size": 20
+		}
+	 ]
+	},
+	{
+	 "name": "Statistics (master)",
+	 "children":
+	 [
+		{
+		"name": "Reproducible",
+		"size": 0
+		},
+		{
+		"name": "Version Control",
+		"size": 5
+		},
+		{
+		"name": "Web frontend",
+		"size": 1
+		},
+		{
+		"name": "Matlab",
+		"size": 7
+		},
+		{
+		"name": "Databases",
+		"size": 3
+		},
+		{
+		"name": "Python",
+		"size": 6
+		},
+		{
+		"name": "R, graphics",
+		"size": 16
+		}
+	]
+	},
+	{
+	 "name": "Other masters",
+	 "children" :
+	 [
+	 	{
+		"name": "R, graphics",
+		"size": 10
+		},
+		{
+	 	"name": "Python",
+		"size": 8
+		},
+
+		{
+	 	"name": "Version Control",
+		"size": 6
+		},
+		{
+	 	"name": "Reproducible",
+		"size": 2
+		},
+
+		{
+	 	"name": "Databases",
+		"size": 5
+		},
+
+		{
+	 	"name": "Web frontend",
+		"size": 2
+		},
+		{
+	 	"name": "Matlab",
+		"size": 5
+		}
+	]
+	},
+	{
+	 "name": "Ph.D.",
+	 "children":
+	[
+		{
+		 "name": "R, graphics",
+		"size": 3
+		},
+		{
+	 	"name": "Reproducible",
+		"size": 0
+		},
+		{
+	 	"name": "Python",
+		"size": 2
+		},
+		{
+	 	"name": "Version Control",
+		"size": 1
+		},
+		{
+	 	"name": "Databases",
+		"size": 1
+		},
+		{
+	 	"name": "Web frontend",
+		"size": 1
+		},
+		{
+	 	"name": "Matlab",
+		"size": 1
+		}
+	]
+	},
+	{
+	 "name": "QMSS (master)",
+	 "children":
+		[
+			{
+			"name": "R, graphics",
+			"size": 3
+			},
+			{
+			"name": "Reproducible",
+			"size": 2
+			},
+			{
+			"name": "Python",
+			"size": 3
+			},
+			{
+			"name": "Version Control",
+			"size": 1
+			},
+			{
+			"name": "Databases",
+			"size": 2
+			},
+			{
+			"name": "Web frontend",
+			"size": 1
+			},
+			{
+			"name": "Matlab",
+			"size": 1
+			} 
+		]
+	}
+]
+}
