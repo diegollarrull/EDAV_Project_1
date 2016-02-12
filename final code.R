@@ -200,6 +200,8 @@ df$Program <- clean("PhD","Ph.D.",df$Program)
 df$Program <- clean("MSDS", "IDSE (master)", df$Program)
 df$Program[df$Program == "Data Science"] = "IDSE (master)"
 
+
+
 # assign names
 names(df) = c("x", "wl", "program", "tools", "r_manipulation", "r_graphics", "r_research",
               "python", "vc", "databases", "frontend", "gender", "editor","pae_r_graphics", 
@@ -303,10 +305,32 @@ g5 = g5 + theme(legend.title = element_text(size=15))
 g5
 
 
+## gender based plots
+df$`gender`[which(df$`gender` == "")] <- "doesn't matter"
+subset = c("gender", "r_graphics", "r_research", "python", "vc", "databases", "frontend")
+dfcat = df[subset]
+dfcat = dfcat[dfcat$gender != "doesn't matter", ]
+mdata = melt(dfcat, id=c("gender"))
+levels(mdata$variable) = c("R_Graphics", "R_Research", "Python", "VersionControl"
+                           ,"Databases", "Frontend")
+mdata = clean_values(mdata)
+dnew = data.frame(table(mdata$gender, mdata$variable, mdata$value))
+dnew$Freq[dnew$Var1 == "He"] = dnew$Freq[dnew$Var1 == "He"]*100/80
+dnew$Freq[dnew$Var1 == "She"] = dnew$Freq[dnew$Var1 == "She"]*100/32
+df_new_yes = dnew[dnew$Var3 == "Yes",]
+names(df_new_yes) = c("Gender", "Skill", "Yes/No", "Percentage")
+
+g1 = ggplot(df_new_yes, aes(Gender, Percentage)) + geom_bar(stat="identity", colour="black") + facet_grid(~Skill) + aes(fill=as.factor(Gender)) + scale_fill_brewer()
+g1 = g1 + labs(title = "Gender vise skill distribution")
+g1 = g1 + theme(axis.text.x = element_text(size=10, vjust=0.5))
+g1 = g1 + theme(strip.text.x = element_text(size = 14))
+g1 = g1 + theme(axis.title.y = element_text(size=15, vjust=0.5))
+g1 = g1 + theme(plot.title = element_text(size=20))
+g1
 
 
 
-  
+##################################
 
 # create a dataset "skills"
 #is this a duplicate from the code in lines 118-139?
