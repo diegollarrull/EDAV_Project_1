@@ -215,11 +215,12 @@ mdata = clean_values(mdata)
 
 levels(mdata$variable) = c("R_Graphics", "R_Research", "Python", "VersionControl"
                            ,"Databases", "Frontend")
-g = ggplot(mdata, aes(variable, fill=value)) + geom_bar() + facet_grid(~variable)
+g = ggplot(mdata, aes(variable, fill=value)) + geom_bar(colour="black") + facet_grid(~variable)
 g = g + labs(title = "Skill Distribution") + theme(axis.text.x=element_blank())
 g = g + theme(axis.ticks.x = element_blank())
 g = g + labs(x = "Skills", y = "Count of Yes/No")
-g = g + scale_fill_manual(values=c("darkgoldenrod1", "darkolivegreen4"))
+#g = g + scale_fill_manual(values=c("darkgoldenrod1", "darkolivegreen4"))
+g = g + scale_fill_brewer()
 g = g + theme(legend.title=element_blank())
 g
 
